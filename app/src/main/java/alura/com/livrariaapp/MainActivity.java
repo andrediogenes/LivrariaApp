@@ -26,18 +26,11 @@ public class MainActivity extends AppCompatActivity {
         return resultado;
     }
 
-    public void autenticaUsuario(String nome , String CPF, String datanasc, boolean ehadm, String senha){
-        Usuario usuario = new Usuario();
-
-        usuario.setUsuario_nome(nome);
-        usuario.setUsuario_CPF(CPF);
-        usuario.setUsuario_nasc(datanasc);
-        usuario.setUsuario_adm(ehadm);
-        usuario.setUsuario_senha(senha);
+    public void autenticaUsuarioMain(String CPF, String senha){
 
         DAO dao = new DAO(this);
 
-        String resultado = dao.autenticaUsuario(usuario);
+        String resultado = dao.autenticaUsuario(CPF, senha);
         Log.d("Resultado: ", resultado);
 
     }
@@ -50,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         //Inserindo um adm do sistema
         String resultado = insereUsuarioMain("Andre diogenes", "1234567890", "31/01/1996", true, "1234");
 
-        autenticaUsuario("Andre diogenes", "1234567890", "31/01/1996", true, "1234");
+        autenticaUsuarioMain( "1234567890", "1234");
 
     }
 }

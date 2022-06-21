@@ -75,17 +75,17 @@ public class DAO extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
-    public String autenticaUsuario(Usuario usuario){
+    public String autenticaUsuario(String CPF, String senha){
         SQLiteDatabase db = getWritableDatabase();
         String sqli_busca_usuario = "SELECT * FROM USUARIO WHERE USUARIO_CPF = " +
                 "'" +
-                usuario.getUsuario_CPF() +
+                CPF +
                 "'";
         Cursor c = db.rawQuery(sqli_busca_usuario, null);
 
         while (c.moveToNext()){
-            if (usuario.getUsuario_CPF().equals(c.getString(c.getColumnIndex("USUARIO_CPF")))){
-                if(usuario.getUsuario_senha().equals(c.getString(c.getColumnIndex("USUARIO_SENHA")))){
+            if (CPF.equals(c.getString(c.getColumnIndex("USUARIO_CPF")))){
+                if(senha.equals(c.getString(c.getColumnIndex("USUARIO_SENHA")))){
                     db.close();
                     c.close();
                     return "login efetuado com sucesso";
@@ -95,7 +95,7 @@ public class DAO extends SQLiteOpenHelper {
         }
         db.close();
         c.close();
-        return "login falhou";
+        return "login falhou, usuário ou senha inválidos";
     }
 
     public void insereLivro(Livro livro){
