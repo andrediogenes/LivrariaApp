@@ -13,7 +13,7 @@ import alura.com.livrariaapp.OBJETOS.Usuario;
 
 public class DAO extends SQLiteOpenHelper {
     public DAO(Context context) {
-        super(context, "USUARIO", null, 2);
+        super(context, "USUARIO", null, 3);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class DAO extends SQLiteOpenHelper {
             db.insertOrThrow("USUARIO", null,dados_usuario);
             db.close();
         } catch (SQLiteConstraintException erro) {
-            return "Erro ao cadastrar usuário";
+            return "Usuário já cadastrado com esse CPF";
         }
         return "Sucesso ao cadastrar usuário";
     }
