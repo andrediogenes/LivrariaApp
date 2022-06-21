@@ -1,7 +1,9 @@
 package alura.com.livrariaapp.DAO;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -70,6 +72,30 @@ public class DAO extends SQLiteOpenHelper {
             return "Erro ao cadastrar usuário";
         }
         return "Sucesso ao cadastrar usuário";
+    }
+
+    @SuppressLint("Range")
+    public String autenticaUsuario(Usuario usuario){
+        SQLiteDatabase db = getWritableDatabase();
+        String sqli_busca_usuario = "SELECT * FROM USUARIO WHERE USUARIO_CPF = " +
+                "'" +
+                usuario.getUsuario_CPF() +
+                "'";
+        Cursor c = db.rawQuery(sqli_busca_usuario, null);
+
+        while (c.moveToNext()){
+            if (usuario.getUsuario_CPF().equals(c.getString(c.getColumnIndex("USUARIO_CPF")))){
+                if(usuario.getUsuario_senha().equals(c.getString(c.getColumnIndex("USUARIO_SENHA")))){
+                    db.close();
+                    c.close();
+                    return "login efetuado com sucesso";
+                }
+            }
+
+        }
+        db.close();
+        c.close();
+        return "login falhou";
     }
 
     public void insereLivro(Livro livro){
