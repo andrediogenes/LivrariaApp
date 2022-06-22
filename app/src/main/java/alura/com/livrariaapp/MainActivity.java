@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         String resultado = dao.autenticaUsuario(CPF, senha);
         Log.d("Resultado: ", resultado);
-
     }
 
     @Override
