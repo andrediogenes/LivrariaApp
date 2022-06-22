@@ -6,7 +6,7 @@ public class Livro {
     String livro_nome;
     String livro_genero;
     String livro_autor;
-    Float livro_preco;
+    String livro_preco;
 
     public Integer getLivro_id() {
         return livro_id;
@@ -44,11 +44,11 @@ public class Livro {
         this.livro_autor = livro_autor;
     }
 
-    public Float getLivro_preco() {
+    public String getLivro_preco() {
         return livro_preco;
     }
 
-    public void setLivro_preco(Float livro_preco) {
+    public void setLivro_preco(String livro_preco) {
         this.livro_preco = livro_preco;
     }
 }

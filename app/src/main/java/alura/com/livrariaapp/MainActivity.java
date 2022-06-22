@@ -12,21 +12,16 @@ public class MainActivity extends AppCompatActivity {
 
     //Função que insere um usuário.
     public String insereUsuarioMain(Usuario usuario){
-
-
         DAO dao = new DAO(this);
 
-        String resultado = dao.insereUsuario(usuario);
-        Log.d("Resultado da insercao: ", resultado);
-        return resultado;
+        return dao.insereUsuario(usuario);
     }
 
-    public void autenticaUsuarioMain(String CPF, String senha){
+    public String autenticaUsuarioMain(String CPF, String senha){
 
         DAO dao = new DAO(this);
 
-        String resultado = dao.autenticaUsuario(CPF, senha);
-        Log.d("Resultado: ", resultado);
+        return dao.autenticaUsuario(CPF, senha);
     }
 
     @Override
@@ -44,9 +39,11 @@ public class MainActivity extends AppCompatActivity {
         usuario.setUsuario_senha("1234");
 
         //Inserindo um adm do sistema
-        String resultado = insereUsuarioMain(usuario);
+        String resultadoInsert = insereUsuarioMain(usuario);
+        Log.d("Resultado da insercao: ", resultadoInsert);
 
         //Autenticando o ADM
-        autenticaUsuarioMain( "1234567890", "1234");
+        String resultadoAut = autenticaUsuarioMain( "1234567890", "1234");
+        Log.d("Resultado autenticacao:", resultadoAut);
     }
 }
