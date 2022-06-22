@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //instanciando usuario ADM para ser cadastrado no sistema
         Usuario usuario = new Usuario();
 
         usuario.setUsuario_nome("Andre diogenes");
