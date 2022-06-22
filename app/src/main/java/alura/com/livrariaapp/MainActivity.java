@@ -3,37 +3,47 @@ package alura.com.livrariaapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import alura.com.livrariaapp.DAO.DAO;
 import alura.com.livrariaapp.OBJETOS.Usuario;
 
 public class MainActivity extends AppCompatActivity {
 
-    public String insereUsuarioMain(String nome , String CPF, String datanasc, boolean ehadm, String senha){
-        Usuario usuario = new Usuario();
+    //Função que insere um usuário.
+    public String insereUsuarioMain(Usuario usuario){
+        DAO dao = new DAO(this);
 
-        usuario.setUsuario_nome(nome);
-        usuario.setUsuario_CPF(CPF);
-        usuario.setUsuario_nasc(datanasc);
-        usuario.setUsuario_adm(ehadm);
-        usuario.setUsuario_senha(senha);
+        return dao.insereUsuario(usuario);
+    }
+
+    public String autenticaUsuarioMain(String CPF, String senha){
 
         DAO dao = new DAO(this);
 
-        String resultado = dao.insereUsuario(usuario);
-        return resultado;
+        return dao.autenticaUsuario(CPF, senha);
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //instanciando usuario ADM para ser cadastrado no sistema
+        Usuario usuario = new Usuario();
+
+        usuario.setUsuario_nome("Andre diogenes");
+        usuario.setUsuario_CPF("1234567890");
+        usuario.setUsuario_nasc("31/01/1996");
+        usuario.setUsuario_adm(true);
+        usuario.setUsuario_senha("1234");
+
         //Inserindo um adm do sistema
-        String resultado = insereUsuarioMain("Andre diogenes", "1234567890", "31/01/1996", true, "1234");
+        String resultadoInsert = insereUsuarioMain(usuario);
+        Log.d("Resultado da insercao: ", resultadoInsert);
 
-
+        //Autenticando o ADM
+        String resultadoAut = autenticaUsuarioMain( "1234567890", "1234");
+        Log.d("Resultado autenticacao:", resultadoAut);
     }
 }
