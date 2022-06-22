@@ -16,6 +16,7 @@ public class DAO extends SQLiteOpenHelper {
         super(context, "USUARIO", null, 4);
     }
 
+    //Criacao das tabelas no banco
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql_usuario = "CREATE TABLE USUARIO (USUARIO_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -54,6 +55,9 @@ public class DAO extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    //Insere um usuário no banco
+    //Retorna uma mensagem positiva caso sucesso
+    //Retorna uma mensagem negativa caso falha
     public String insereUsuario(Usuario usuario){
         SQLiteDatabase db = getWritableDatabase();
 
@@ -74,6 +78,8 @@ public class DAO extends SQLiteOpenHelper {
         return "Sucesso ao cadastrar usuário";
     }
 
+    //Autentica um usuário no banco pelo CPF e senha
+    //Mensagem positiva caso positivo e negativa caso negativo
     @SuppressLint("Range")
     public String autenticaUsuario(String CPF, String senha){
         SQLiteDatabase db = getWritableDatabase();
