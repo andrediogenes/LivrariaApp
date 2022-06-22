@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import alura.com.livrariaapp.OBJETOS.Livro;
 import alura.com.livrariaapp.OBJETOS.Usuario;
+import alura.com.livrariaapp.OBJETOS.Venda;
 
 public class DAO extends SQLiteOpenHelper {
     public DAO(Context context) {
@@ -33,7 +34,7 @@ public class DAO extends SQLiteOpenHelper {
                 "LIVRO_PRECO TEXT);";
         String sql_venda = "CREATE TABLE VENDA (VENDA_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "VENDA_IDUSUARIOVENDA TEXT," +
-                "VENDA_IDLIVROVENDA INTEGER," +
+                "VENDA_IDLIVROVENDA INTEGER UNIQUE," +
                 "VENDA_DATACOMPRA DATE," +
                 "VENDA_FORMAPAGAMENTO TEXT);";
 
@@ -104,13 +105,13 @@ public class DAO extends SQLiteOpenHelper {
         return "login falhou, usuário ou senha inválidos";
     }
 
-    public String insereLivro(Livro livro, Integer id_usuario_cadastro){
+    public String insereLivro(Livro livro, Integer idUsuarioCadastro){
         SQLiteDatabase db = getWritableDatabase();
 
         //Dados a serem gravados no banco
         try {
             ContentValues dados_livro = new ContentValues();
-            dados_livro.put("LIVRO_IDUSUARIOCADASTRO", id_usuario_cadastro);
+            dados_livro.put("LIVRO_IDUSUARIOCADASTRO", idUsuarioCadastro);
             dados_livro.put("LIVRO_NOME", livro.getLivro_nome());
             dados_livro.put("LIVRO_GENERO", livro.getLivro_genero());
             dados_livro.put("LIVRO_AUTOR", livro.getLivro_autor());
@@ -135,5 +136,25 @@ public class DAO extends SQLiteOpenHelper {
         db.close();
         c.close();
         return "Delete feito com sucesso";
+    }
+
+    //Funcao de cadastro das vendas no banco
+    public String insereVenda(Venda venda, Integer idUsuarioVenda, Integer idLivroVenda){
+        SQLiteDatabase db = getWritableDatabase();
+
+        //Dados a serem gravados no banco
+        try {
+            ContentValues dados_venda = new ContentValues();
+            dados_venda.put("VENDA_IDUSUARIOVENDA", idUsuarioVenda);
+            dados_venda.put("VENDA_IDLIVROVENDA", idLivroVenda);
+            dados_venda.put("VENDA_DATACOMPRA", venda.getVenda_data());
+            dados_venda.put("VENDA_FORMAPAGAMENTO", venda.getVenda_forma_pagamento());
+
+            db.insertOrThrow("VENDA", null,dados_venda);
+            db.close();
+        } catch (SQLiteConstraintException erro) {
+            return "ERRO! Esse livro ja está vendido";
+        }
+        return "Venda cadastrada com sucesso";
     }
 }
