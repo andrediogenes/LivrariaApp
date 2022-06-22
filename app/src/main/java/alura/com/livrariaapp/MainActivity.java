@@ -10,14 +10,9 @@ import alura.com.livrariaapp.OBJETOS.Usuario;
 
 public class MainActivity extends AppCompatActivity {
 
-    public String insereUsuarioMain(String nome , String CPF, String datanasc, boolean ehadm, String senha){
-        Usuario usuario = new Usuario();
+    //Função que insere um usuário.
+    public String insereUsuarioMain(Usuario usuario){
 
-        usuario.setUsuario_nome(nome);
-        usuario.setUsuario_CPF(CPF);
-        usuario.setUsuario_nasc(datanasc);
-        usuario.setUsuario_adm(ehadm);
-        usuario.setUsuario_senha(senha);
 
         DAO dao = new DAO(this);
 
@@ -39,8 +34,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Usuario usuario = new Usuario();
+
+        usuario.setUsuario_nome("Andre diogenes");
+        usuario.setUsuario_CPF("1234567890");
+        usuario.setUsuario_nasc("31/01/1996");
+        usuario.setUsuario_adm(true);
+        usuario.setUsuario_senha("1234");
+
         //Inserindo um adm do sistema
-        String resultado = insereUsuarioMain("Andre diogenes", "1234567890", "31/01/1996", true, "1234");
+        String resultado = insereUsuarioMain(usuario);
 
         //Autenticando o ADM
         autenticaUsuarioMain( "1234567890", "1234");
