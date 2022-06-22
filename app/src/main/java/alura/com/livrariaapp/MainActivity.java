@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         //Inserindo um adm do sistema
         String resultado = insereUsuarioMain("Andre diogenes", "1234567890", "31/01/1996", true, "1234");
 
+        //Autenticando o ADM
         autenticaUsuarioMain( "1234567890", "1234");
 
     }
