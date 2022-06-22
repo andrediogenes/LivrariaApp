@@ -45,6 +45,5 @@ public class MainActivity extends AppCompatActivity {
 
         //Autenticando o ADM
         autenticaUsuarioMain( "1234567890", "1234");
-
     }
 }
