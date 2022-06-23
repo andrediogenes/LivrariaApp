@@ -31,12 +31,23 @@ public class MainActivity extends AppCompatActivity {
         return dao.insereLivro(livro, id);
     }
 
+    //Funcao que deleta um livro
+    public String deletaLivroMain(String codBarras){
+        return dao.deletaLivro(codBarras);
+    }
+
     //Funcao que registra a venda
     public String registraVendaMain(Venda venda, String CPF, String codBarras){
         Integer idUsuario = dao.retornaIDUsuario(CPF);
         Integer idLivro = dao.retornaIDLivro(codBarras);
 
         return dao.insereVenda(venda, idUsuario, idLivro);
+    }
+
+    public String deletaVendaMain(String codBarras){
+        Integer idLivro = dao.retornaIDLivro(codBarras);
+
+        return dao.deletaVenda(idLivro);
     }
 
     @Override
@@ -72,7 +83,19 @@ public class MainActivity extends AppCompatActivity {
         venda.setVenda_data("22/06/2022");
         venda.setVenda_forma_pagamento("Dinheiro");
 
+        //Registrando uma venda
         Log.d("Resultado venda: ", registraVendaMain(venda, "1234567890", "123456"));
+        //deletando venda
+        Log.d("Resultado delete:", deletaVendaMain("123456"));
+        //registrando venda novamente
+        Log.d("Resultado venda: ", registraVendaMain(venda, "1234567890", "123456"));
+
+        //Deletando o livro
+        Log.d("Resultado delete:", deletaLivroMain("123456"));
+
+        //cadastrando o livro novamente para verificar se o delete foi correto
+        Log.d("Resultado livro: ", cadastraLivroMain(livro, "1234567890"));
+
 
     }
 }

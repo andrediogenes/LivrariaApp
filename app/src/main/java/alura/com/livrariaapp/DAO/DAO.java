@@ -14,7 +14,7 @@ import alura.com.livrariaapp.OBJETOS.Venda;
 
 public class DAO extends SQLiteOpenHelper {
     public DAO(Context context) {
-        super(context, "USUARIO", null, 6);
+        super(context, "USUARIO", null, 7);
     }
 
     //Criacao das tabelas no banco
@@ -99,7 +99,6 @@ public class DAO extends SQLiteOpenHelper {
                     return "login efetuado com sucesso";
                 }
             }
-
         }
         db.close();
         c.close();
@@ -141,21 +140,24 @@ public class DAO extends SQLiteOpenHelper {
         return "Livro cadastrado com sucesso";
     }
 
-    public String deletaLivro(Integer idLivro){
+    //Dado um id do livro, o deleta
+    public String deletaLivro(String codBarras){
         SQLiteDatabase db = getWritableDatabase();
-        String sqli_deleta_livro = "DELETE FROM LIVRO WHERE LIVRO_ID = " +
-                "'" +
-                idLivro +
-                "'";
-        Cursor c = db.rawQuery(sqli_deleta_livro, null);
+        try {
+            String sqli_deleta_livro = "DELETE FROM LIVRO WHERE LIVRO_CODBARRAS = " +
+                    "'" +
+                    codBarras +
+                    "'";
 
-        db.close();
-        c.close();
-        return "Delete feito com sucesso";
-        //teste
+            db.execSQL(sqli_deleta_livro);
+            db.close();
+        } catch (SQLiteConstraintException erro){
+            return "Erro de delete";
+        }
+        return "Livro deletado com sucesso";
     }
 
-    //Pesquisa um usuario pelo CPF e o retorna pelo ID
+    //Pesquisa um livro pelo codBarras e o retorna pelo ID
     public Integer retornaIDLivro(String codBarras){
         SQLiteDatabase db = getWritableDatabase();
         String sqli_busca_livro = "SELECT * FROM LIVRO WHERE LIVRO_CODBARRAS = " +
@@ -187,5 +189,22 @@ public class DAO extends SQLiteOpenHelper {
             return "ERRO! Esse livro ja está vendido";
         }
         return "Venda cadastrada com sucesso";
+    }
+
+    //Funcao de deletar um registro de venda no banco
+    public String deletaVenda(Integer idLivroVenda){
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String sqli_deleta_venda = "DELETE FROM VENDA WHERE VENDA_IDLIVROVENDA = " +
+                    "'" +
+                    idLivroVenda +
+                    "'";
+
+            db.execSQL(sqli_deleta_venda);
+            db.close();
+        } catch (SQLiteConstraintException erro){
+            return "Erro de delete";
+        }
+        return "Venda deletado com sucesso";
     }
 }
