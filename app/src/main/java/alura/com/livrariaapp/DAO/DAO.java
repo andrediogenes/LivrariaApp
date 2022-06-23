@@ -152,6 +152,7 @@ public class DAO extends SQLiteOpenHelper {
         db.close();
         c.close();
         return "Delete feito com sucesso";
+        //teste
     }
 
     //Pesquisa um usuario pelo CPF e o retorna pelo ID
