@@ -3,10 +3,19 @@ package alura.com.livrariaapp.OBJETOS;
 public class Livro {
     Integer livro_id;
     Integer usuario_cadastro_id;
+    String livro_cod_barras;
     String livro_nome;
     String livro_genero;
     String livro_autor;
     String livro_preco;
+
+    public String getLivro_cod_barras() {
+        return livro_cod_barras;
+    }
+
+    public void setLivro_cod_barras(String livro_cod_barras) {
+        this.livro_cod_barras = livro_cod_barras;
+    }
 
     public Integer getLivro_id() {
         return livro_id;
