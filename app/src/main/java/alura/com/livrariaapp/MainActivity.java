@@ -24,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
         return dao.autenticaUsuario(CPF, senha);
     }
 
+    //Funcao que deleta o usuario
+    public String deletaUsuarioMain(String CPF){
+        return dao.deletaUsuario(CPF);
+    }
+
     //Funcao que cadastra o livro
     public String cadastraLivroMain(Livro livro, String CPF){
         Integer id = dao.retornaIDUsuario(CPF);
@@ -46,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
     public String deletaVendaMain(String codBarras){
         Integer idLivro = dao.retornaIDLivro(codBarras);
-
         return dao.deletaVenda(idLivro);
     }
 
@@ -64,10 +68,15 @@ public class MainActivity extends AppCompatActivity {
         usuario.setUsuario_senha("1234");
 
         //Inserindo um adm do sistema
-        Log.d("Resultado da insercao: ", insereUsuarioMain(usuario));
-
+        Log.d("Resultado usuario: ", insereUsuarioMain(usuario));
         //Autenticando o ADM
         Log.d("Resultado autenticacao:", autenticaUsuarioMain( "1234567890", "1234"));
+        //Inserindo o mesmo usuário no sistema para dar erro
+        Log.d("Resultado usuario: ", insereUsuarioMain(usuario));
+        //Deletando o usuario no sistema
+        Log.d("Delete Usuario:", deletaUsuarioMain("1234567890"));
+        //Inserindo o mesmo usuário no sistema para ver se o delete foi feito correto
+        Log.d("Resultado usuario: ", insereUsuarioMain(usuario));
 
         Livro livro = new Livro();
         livro.setLivro_autor("JK Rowling");
@@ -78,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
 
         //cadastrando o livro
         Log.d("Resultado livro: ", cadastraLivroMain(livro, "1234567890"));
+        //Tentando cadastrar o livro novamente para exibir uma mensagem de erro
+        Log.d("Resultado livro: ", cadastraLivroMain(livro, "1234567890"));
+        //Deletando o livro
+        Log.d("Resultado delete:", deletaLivroMain("123456"));
+        //cadastrando o livro novamente para verificar se o delete foi correto
+        Log.d("Resultado livro: ", cadastraLivroMain(livro, "1234567890"));
 
         Venda venda = new Venda();
         venda.setVenda_data("22/06/2022");
@@ -85,17 +100,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Registrando uma venda
         Log.d("Resultado venda: ", registraVendaMain(venda, "1234567890", "123456"));
+        //Tentando registrar uma venda para exibir o erro
+        Log.d("Resultado venda: ", registraVendaMain(venda, "1234567890", "123456"));
         //deletando venda
         Log.d("Resultado delete:", deletaVendaMain("123456"));
-        //registrando venda novamente
+        //registrando venda novamente para verificar se o delete foi correto
         Log.d("Resultado venda: ", registraVendaMain(venda, "1234567890", "123456"));
-
-        //Deletando o livro
-        Log.d("Resultado delete:", deletaLivroMain("123456"));
-
-        //cadastrando o livro novamente para verificar se o delete foi correto
-        Log.d("Resultado livro: ", cadastraLivroMain(livro, "1234567890"));
-
 
     }
 }

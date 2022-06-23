@@ -105,6 +105,23 @@ public class DAO extends SQLiteOpenHelper {
         return "login falhou, usuário ou senha inválidos";
     }
 
+    //
+    public String deletaUsuario(String CPF){
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String sqli_deleta_usuario = "DELETE FROM USUARIO WHERE USUARIO_CPF = " +
+                    "'" +
+                    CPF +
+                    "'";
+
+            db.execSQL(sqli_deleta_usuario);
+            db.close();
+        } catch (SQLiteConstraintException erro){
+            return "Erro de delete";
+        }
+        return "Usuario deletado com sucesso";
+    }
+
     //Pesquisa um usuario pelo CPF e o retorna pelo ID
     public Integer retornaIDUsuario(String CPF){
         SQLiteDatabase db = getWritableDatabase();
@@ -206,5 +223,18 @@ public class DAO extends SQLiteOpenHelper {
             return "Erro de delete";
         }
         return "Venda deletado com sucesso";
+    }
+
+    public Integer retornaIDVenda(String idLivroVenda){
+        SQLiteDatabase db = getWritableDatabase();
+        String sqli_busca_livro = "SELECT * FROM LIVRO WHERE LIVRO_CODBARRAS = " +
+                "'" +
+                idLivroVenda +
+                "'";
+        Cursor c = db.rawQuery(sqli_busca_livro, null);
+        Integer id = c.getColumnIndex("VENDA_ID");
+        db.close();
+        c.close();
+        return id;
     }
 }
