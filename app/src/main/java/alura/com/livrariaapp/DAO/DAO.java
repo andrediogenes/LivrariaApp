@@ -14,7 +14,7 @@ import alura.com.livrariaapp.OBJETOS.Venda;
 
 public class DAO extends SQLiteOpenHelper {
     public DAO(Context context) {
-        super(context, "USUARIO", null, 4);
+        super(context, "USUARIO", null, 6);
     }
 
     //Criacao das tabelas no banco
@@ -28,6 +28,7 @@ public class DAO extends SQLiteOpenHelper {
                 "USUARIO_SENHA TEXT NOT NULL);";
         String sql_livro = "CREATE TABLE LIVRO (LIVRO_ID INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 "LIVRO_IDUSUARIOCADASTRO INTEGER," +
+                "LIVRO_CODBARRAS TEXT UNIQUE," +
                 "LIVRO_NOME TEXT," +
                 "LIVRO_GENERO TEXT," +
                 "LIVRO_AUTOR TEXT," +
@@ -105,6 +106,20 @@ public class DAO extends SQLiteOpenHelper {
         return "login falhou, usuário ou senha inválidos";
     }
 
+    //Pesquisa um usuario pelo CPF e o retorna pelo ID
+    public Integer retornaIDUsuario(String CPF){
+        SQLiteDatabase db = getWritableDatabase();
+        String sqli_busca_usuario = "SELECT * FROM USUARIO WHERE USUARIO_CPF = " +
+                "'" +
+                CPF +
+                "'";
+        Cursor c = db.rawQuery(sqli_busca_usuario, null);
+        Integer id = c.getColumnIndex("USUARIO_ID");
+        db.close();
+        c.close();
+        return id;
+    }
+
     public String insereLivro(Livro livro, Integer idUsuarioCadastro){
         SQLiteDatabase db = getWritableDatabase();
 
@@ -112,6 +127,7 @@ public class DAO extends SQLiteOpenHelper {
         try {
             ContentValues dados_livro = new ContentValues();
             dados_livro.put("LIVRO_IDUSUARIOCADASTRO", idUsuarioCadastro);
+            dados_livro.put("LIVRO_CODBARRAS", livro.getLivro_cod_barras());
             dados_livro.put("LIVRO_NOME", livro.getLivro_nome());
             dados_livro.put("LIVRO_GENERO", livro.getLivro_genero());
             dados_livro.put("LIVRO_AUTOR", livro.getLivro_autor());
@@ -120,7 +136,7 @@ public class DAO extends SQLiteOpenHelper {
             db.insertOrThrow("LIVRO", null,dados_livro);
             db.close();
         } catch (SQLiteConstraintException erro) {
-            return "Erro de insercao";
+            return "Erro de insercao, livro já cadastrado";
         }
         return "Livro cadastrado com sucesso";
     }
@@ -136,6 +152,20 @@ public class DAO extends SQLiteOpenHelper {
         db.close();
         c.close();
         return "Delete feito com sucesso";
+    }
+
+    //Pesquisa um usuario pelo CPF e o retorna pelo ID
+    public Integer retornaIDLivro(String codBarras){
+        SQLiteDatabase db = getWritableDatabase();
+        String sqli_busca_livro = "SELECT * FROM LIVRO WHERE LIVRO_CODBARRAS = " +
+                "'" +
+                codBarras +
+                "'";
+        Cursor c = db.rawQuery(sqli_busca_livro, null);
+        Integer id = c.getColumnIndex("LIVRO_ID");
+        db.close();
+        c.close();
+        return id;
     }
 
     //Funcao de cadastro das vendas no banco
