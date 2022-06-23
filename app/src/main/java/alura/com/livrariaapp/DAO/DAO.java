@@ -8,13 +8,16 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import alura.com.livrariaapp.OBJETOS.Livro;
 import alura.com.livrariaapp.OBJETOS.Usuario;
 import alura.com.livrariaapp.OBJETOS.Venda;
 
 public class DAO extends SQLiteOpenHelper {
     public DAO(Context context) {
-        super(context, "USUARIO", null, 7);
+        super(context, "USUARIO", null, 8);
     }
 
     //Criacao das tabelas no banco
@@ -24,7 +27,7 @@ public class DAO extends SQLiteOpenHelper {
                 "USUARIO_NOME TEXT," +
                 "USUARIO_CPF TEXT UNIQUE," +
                 "USUARIO_DATANASC DATE," +
-                "USUARIO_EHADM BOOLEAN," +
+                "USUARIO_EHADM INTEGER," +
                 "USUARIO_SENHA TEXT NOT NULL);";
         String sql_livro = "CREATE TABLE LIVRO (LIVRO_ID INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 "LIVRO_IDUSUARIOCADASTRO INTEGER," +
@@ -225,6 +228,7 @@ public class DAO extends SQLiteOpenHelper {
         return "Venda deletado com sucesso";
     }
 
+    //Funcao de retornar o ID da venda
     public Integer retornaIDVenda(String idLivroVenda){
         SQLiteDatabase db = getWritableDatabase();
         String sqli_busca_livro = "SELECT * FROM LIVRO WHERE LIVRO_CODBARRAS = " +
@@ -237,4 +241,21 @@ public class DAO extends SQLiteOpenHelper {
         c.close();
         return id;
     }
+    /*
+    //Funcao que retorna uma lista com os usuários
+    public List<Usuario> consultaUsuarios(){
+        SQLiteDatabase db = getWritableDatabase();
+        String sqli_busca_usuario = "SELECT * FROM USUARIO";
+
+        Cursor c = db.rawQuery(sqli_busca_usuario, null);
+
+        List<Usuario> usuarios = new ArrayList<Usuario>();
+
+        while(c.moveToNext()){
+            Usuario auxiliar = new Usuario();
+            c.getColumnIndex("USUARIO_ADM");
+
+            auxiliar.setUsuario_adm();
+        }
+    }*/
 }

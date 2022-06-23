@@ -6,7 +6,7 @@ public class Usuario {
     String usuario_CPF;
     String usuario_nasc;
     String usuario_senha;
-    boolean usuario_adm;
+    Integer usuario_adm;
 
     public String getUsuario_senha() {
         return usuario_senha;
@@ -44,11 +44,11 @@ public class Usuario {
         this.usuario_nasc = usuario_nasc;
     }
 
-    public boolean isUsuario_adm() {
+    public Integer isUsuario_adm() {
         return usuario_adm;
     }
 
-    public void setUsuario_adm(boolean usuario_adm) {
+    public void setUsuario_adm(Integer usuario_adm) {
         this.usuario_adm = usuario_adm;
     }
 

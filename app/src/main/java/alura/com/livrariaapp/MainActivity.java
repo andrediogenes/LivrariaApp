@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         usuario.setUsuario_nome("Andre diogenes");
         usuario.setUsuario_CPF("1234567890");
         usuario.setUsuario_nasc("31/01/1996");
-        usuario.setUsuario_adm(true);
+        usuario.setUsuario_adm(1);
         usuario.setUsuario_senha("1234");
 
         //Inserindo um adm do sistema
@@ -106,6 +106,47 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Resultado delete:", deletaVendaMain("123456"));
         //registrando venda novamente para verificar se o delete foi correto
         Log.d("Resultado venda: ", registraVendaMain(venda, "1234567890", "123456"));
+
+
+        //-------------------------------------------------------
+        //Agora partindo para as funções de exibição do banco de dados
+        Usuario usuario1 = new Usuario();
+        usuario1.setUsuario_nome("Gabriel");
+        usuario1.setUsuario_CPF("12345678");
+        usuario1.setUsuario_nasc("31/01/1996");
+        usuario1.setUsuario_adm(0);
+        usuario1.setUsuario_senha("1234");
+        Usuario usuario2 = new Usuario();
+        usuario2.setUsuario_nome("Pedro");
+        usuario2.setUsuario_CPF("1111");
+        usuario2.setUsuario_nasc("31/01/1991");
+        usuario2.setUsuario_adm(0);
+        usuario2.setUsuario_senha("1234");
+
+        //Livros
+        Livro livro1 = new Livro();
+        livro1.setLivro_autor("CS Lewis");
+        livro1.setLivro_cod_barras("1111");
+        livro1.setLivro_genero("Fantasia");
+        livro1.setLivro_nome("Nárnia");
+        livro1.setLivro_preco("100,00");
+        Livro livro2 = new Livro();
+        livro2.setLivro_autor("George Orwell");
+        livro2.setLivro_cod_barras("1112");
+        livro2.setLivro_genero("Fantasia");
+        livro2.setLivro_nome("A revolução dos bichos");
+        livro2.setLivro_preco("75,00");
+
+        //Venda
+        Venda venda1 = new Venda();
+        venda1.setVenda_data("22/05/2022");
+        venda1.setVenda_forma_pagamento("Cartão");
+
+        //Registrando uma venda
+        Log.d("Resultado venda: ", registraVendaMain(venda, "1234567890", "1111"));
+
+        //-------------------------------------------------------------------------
+        //Exibindo as informações
 
     }
 }
