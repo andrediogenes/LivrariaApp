@@ -6,6 +6,15 @@ public class Usuario {
     String usuario_CPF;
     String usuario_nasc;
     String usuario_senha;
+
+    public void setUsuario_id(Integer usuario_id) {
+        this.usuario_id = usuario_id;
+    }
+
+    public Integer getUsuario_adm() {
+        return usuario_adm;
+    }
+
     Integer usuario_adm;
 
     public String getUsuario_senha() {

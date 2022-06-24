@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -242,37 +244,32 @@ public class DAO extends SQLiteOpenHelper {
         return id;
     }
 
-    //Funcao que retorna uma lista com os usuários
-    public List<Usuario> consultaUsuarios(){
-        SQLiteDatabase db = getReadableDatabase();
+    public void listarDados() {
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+            Cursor c = db.rawQuery("SELECT USUARIO_ID, USUARIO_NOME, USUARIO_CPF, USUARIO_DATANASC, USUARIO_EHADM, USUARIO_SENHA FROM USUARIO", null);
+            ArrayList<Usuario> linhas = new ArrayList<Usuario>();
 
-// Define a projection that specifies which columns from the database
-// you will actually use after this query.
-        //https://developer.android.com/training/data-storage/sqlite?hl=pt-br#java
-        //https://www.youtube.com/watch?v=hRptcOy1g2M
-        String[] projection = {
-                BaseColumns._ID,
-                FeedEntry.COLUMN_NAME_TITLE,
-                FeedEntry.COLUMN_NAME_SUBTITLE
-        };
+            while(c.moveToNext()){
+                Usuario usuario = new Usuario();
+                usuario.setUsuario_adm(c.getInt(c.getColumnIndexOrThrow("USUARIO_EHADM")));
+                usuario.setUsuario_id(c.getInt(c.getColumnIndexOrThrow("USUARIO_ID")));
+                usuario.setUsuario_nome(c.getString(c.getColumnIndexOrThrow("USUARIO_NOME")));
+                usuario.setUsuario_CPF(c.getString(c.getColumnIndexOrThrow("USUARIO_CPF")));
+                usuario.setUsuario_senha(c.getString(c.getColumnIndexOrThrow("USUARIO_SENHA")));
+                usuario.setUsuario_nasc(c.getString(c.getColumnIndexOrThrow("USUARIO_DATANASC")));
 
-// Filter results WHERE "title" = 'My Title'
-        String selection = FeedEntry.COLUMN_NAME_TITLE + " = ?";
-        String[] selectionArgs = { "My Title" };
+                linhas.add(usuario);
+                Log.d("testando: ", usuario.getUsuario_CPF());
+                Log.d("testando: ", usuario.getUsuario_nome());
+                Log.d("testando: ", usuario.getUsuario_nasc());
+                Log.d("testando: ", usuario.getUsuario_senha());
 
-// How you want the results sorted in the resulting Cursor
-        String sortOrder =
-                FeedEntry.COLUMN_NAME_SUBTITLE + " DESC";
-
-        Cursor cursor = db.query(
-                FeedEntry.TABLE_NAME,   // The table to query
-                projection,             // The array of columns to return (pass null to get all)
-                selection,              // The columns for the WHERE clause
-                selectionArgs,          // The values for the WHERE clause
-                null,                   // don't group the rows
-                null,                   // don't filter by row groups
-                sortOrder               // The sort order
-        );
+            }
+            db.close();
+            c.close();
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

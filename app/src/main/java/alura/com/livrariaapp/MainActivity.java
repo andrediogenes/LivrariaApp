@@ -54,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
         return dao.deletaVenda(idLivro);
     }
 
+    public void listaUsuarios(){
+        dao.listarDados();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
         usuario2.setUsuario_nasc("31/01/1991");
         usuario2.setUsuario_adm(0);
         usuario2.setUsuario_senha("1234");
+        Log.d("Resultado usuario: ", insereUsuarioMain(usuario1));
+        Log.d("Resultado usuario: ", insereUsuarioMain(usuario2));
 
         //Livros
         Livro livro1 = new Livro();
@@ -147,6 +153,6 @@ public class MainActivity extends AppCompatActivity {
 
         //-------------------------------------------------------------------------
         //Exibindo as informações
-
+        listaUsuarios();
     }
 }

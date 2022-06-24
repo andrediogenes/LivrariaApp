@@ -9,6 +9,10 @@ public class Livro {
     String livro_autor;
     String livro_preco;
 
+    public void setLivro_id(Integer livro_id) {
+        this.livro_id = livro_id;
+    }
+
     public String getLivro_cod_barras() {
         return livro_cod_barras;
     }
