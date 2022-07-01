@@ -244,11 +244,11 @@ public class DAO extends SQLiteOpenHelper {
         return id;
     }
 
-    public void listarDados() {
+    public ArrayList<Usuario> listarDados() {
+        ArrayList<Usuario> linhas = new ArrayList<>();
         try {
             SQLiteDatabase db = getWritableDatabase();
             Cursor c = db.rawQuery("SELECT USUARIO_ID, USUARIO_NOME, USUARIO_CPF, USUARIO_DATANASC, USUARIO_EHADM, USUARIO_SENHA FROM USUARIO", null);
-            ArrayList<Usuario> linhas = new ArrayList<Usuario>();
 
             while(c.moveToNext()){
                 Usuario usuario = new Usuario();
@@ -260,16 +260,12 @@ public class DAO extends SQLiteOpenHelper {
                 usuario.setUsuario_nasc(c.getString(c.getColumnIndexOrThrow("USUARIO_DATANASC")));
 
                 linhas.add(usuario);
-                Log.d("testando: ", usuario.getUsuario_CPF());
-                Log.d("testando: ", usuario.getUsuario_nome());
-                Log.d("testando: ", usuario.getUsuario_nasc());
-                Log.d("testando: ", usuario.getUsuario_senha());
-
             }
             db.close();
             c.close();
         } catch (Exception e){
             e.printStackTrace();
         }
+        return linhas;
     }
 }
