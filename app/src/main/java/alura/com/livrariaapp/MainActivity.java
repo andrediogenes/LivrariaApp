@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import alura.com.livrariaapp.DAO.DAO;
 import alura.com.livrariaapp.OBJETOS.Livro;
 import alura.com.livrariaapp.OBJETOS.Usuario;
@@ -54,8 +56,17 @@ public class MainActivity extends AppCompatActivity {
         return dao.deletaVenda(idLivro);
     }
 
-    public void listaUsuarios(){
-        dao.listarDados();
+    public ArrayList<Usuario> listaUsuarios(){
+        return dao.listarDados();
+    }
+
+    public void elementosLista(ArrayList<Usuario> lista){
+        //Testando e mostrando os elementos da lista de Usuarios
+        int i;
+        int n = lista.size();
+        for (i=0; i<n; i++) {
+            System.out.printf("Usuario Numero: %d- Nome: %s\n", i, lista.get(i).getUsuario_nome());
+        }
     }
 
     @Override
@@ -153,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
         //-------------------------------------------------------------------------
         //Exibindo as informações
-        listaUsuarios();
+        elementosLista(listaUsuarios());
+
     }
 }
