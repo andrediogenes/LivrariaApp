@@ -7,6 +7,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import alura.com.livrariaapp.OBJETOS.Livro;
 import alura.com.livrariaapp.OBJETOS.Usuario;
@@ -14,7 +19,7 @@ import alura.com.livrariaapp.OBJETOS.Venda;
 
 public class DAO extends SQLiteOpenHelper {
     public DAO(Context context) {
-        super(context, "USUARIO", null, 6);
+        super(context, "USUARIO", null, 8);
     }
 
     //Criacao das tabelas no banco
@@ -24,7 +29,7 @@ public class DAO extends SQLiteOpenHelper {
                 "USUARIO_NOME TEXT," +
                 "USUARIO_CPF TEXT UNIQUE," +
                 "USUARIO_DATANASC DATE," +
-                "USUARIO_EHADM BOOLEAN," +
+                "USUARIO_EHADM INTEGER," +
                 "USUARIO_SENHA TEXT NOT NULL);";
         String sql_livro = "CREATE TABLE LIVRO (LIVRO_ID INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 "LIVRO_IDUSUARIOCADASTRO INTEGER," +
@@ -99,11 +104,27 @@ public class DAO extends SQLiteOpenHelper {
                     return "login efetuado com sucesso";
                 }
             }
-
         }
         db.close();
         c.close();
         return "login falhou, usuário ou senha inválidos";
+    }
+
+    //
+    public String deletaUsuario(String CPF){
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String sqli_deleta_usuario = "DELETE FROM USUARIO WHERE USUARIO_CPF = " +
+                    "'" +
+                    CPF +
+                    "'";
+
+            db.execSQL(sqli_deleta_usuario);
+            db.close();
+        } catch (SQLiteConstraintException erro){
+            return "Erro de delete";
+        }
+        return "Usuario deletado com sucesso";
     }
 
     //Pesquisa um usuario pelo CPF e o retorna pelo ID
@@ -141,21 +162,24 @@ public class DAO extends SQLiteOpenHelper {
         return "Livro cadastrado com sucesso";
     }
 
-    public String deletaLivro(Integer idLivro){
+    //Dado um id do livro, o deleta
+    public String deletaLivro(String codBarras){
         SQLiteDatabase db = getWritableDatabase();
-        String sqli_deleta_livro = "DELETE FROM LIVRO WHERE LIVRO_ID = " +
-                "'" +
-                idLivro +
-                "'";
-        Cursor c = db.rawQuery(sqli_deleta_livro, null);
+        try {
+            String sqli_deleta_livro = "DELETE FROM LIVRO WHERE LIVRO_CODBARRAS = " +
+                    "'" +
+                    codBarras +
+                    "'";
 
-        db.close();
-        c.close();
-        return "Delete feito com sucesso";
-        //teste
+            db.execSQL(sqli_deleta_livro);
+            db.close();
+        } catch (SQLiteConstraintException erro){
+            return "Erro de delete";
+        }
+        return "Livro deletado com sucesso";
     }
 
-    //Pesquisa um usuario pelo CPF e o retorna pelo ID
+    //Pesquisa um livro pelo codBarras e o retorna pelo ID
     public Integer retornaIDLivro(String codBarras){
         SQLiteDatabase db = getWritableDatabase();
         String sqli_busca_livro = "SELECT * FROM LIVRO WHERE LIVRO_CODBARRAS = " +
@@ -187,5 +211,61 @@ public class DAO extends SQLiteOpenHelper {
             return "ERRO! Esse livro ja está vendido";
         }
         return "Venda cadastrada com sucesso";
+    }
+
+    //Funcao de deletar um registro de venda no banco
+    public String deletaVenda(Integer idLivroVenda){
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String sqli_deleta_venda = "DELETE FROM VENDA WHERE VENDA_IDLIVROVENDA = " +
+                    "'" +
+                    idLivroVenda +
+                    "'";
+
+            db.execSQL(sqli_deleta_venda);
+            db.close();
+        } catch (SQLiteConstraintException erro){
+            return "Erro de delete";
+        }
+        return "Venda deletado com sucesso";
+    }
+
+    //Funcao de retornar o ID da venda
+    public Integer retornaIDVenda(String idLivroVenda){
+        SQLiteDatabase db = getWritableDatabase();
+        String sqli_busca_livro = "SELECT * FROM LIVRO WHERE LIVRO_CODBARRAS = " +
+                "'" +
+                idLivroVenda +
+                "'";
+        Cursor c = db.rawQuery(sqli_busca_livro, null);
+        Integer id = c.getColumnIndex("VENDA_ID");
+        db.close();
+        c.close();
+        return id;
+    }
+
+    public ArrayList<Usuario> listarDados() {
+        ArrayList<Usuario> linhas = new ArrayList<>();
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+            Cursor c = db.rawQuery("SELECT USUARIO_ID, USUARIO_NOME, USUARIO_CPF, USUARIO_DATANASC, USUARIO_EHADM, USUARIO_SENHA FROM USUARIO", null);
+
+            while(c.moveToNext()){
+                Usuario usuario = new Usuario();
+                usuario.setUsuario_adm(c.getInt(c.getColumnIndexOrThrow("USUARIO_EHADM")));
+                usuario.setUsuario_id(c.getInt(c.getColumnIndexOrThrow("USUARIO_ID")));
+                usuario.setUsuario_nome(c.getString(c.getColumnIndexOrThrow("USUARIO_NOME")));
+                usuario.setUsuario_CPF(c.getString(c.getColumnIndexOrThrow("USUARIO_CPF")));
+                usuario.setUsuario_senha(c.getString(c.getColumnIndexOrThrow("USUARIO_SENHA")));
+                usuario.setUsuario_nasc(c.getString(c.getColumnIndexOrThrow("USUARIO_DATANASC")));
+
+                linhas.add(usuario);
+            }
+            db.close();
+            c.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return linhas;
     }
 }

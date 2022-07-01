@@ -11,6 +11,10 @@ public class Venda {
         return venda_id;
     }
 
+    public void setVenda_id(Integer venda_id) {
+        this.venda_id = venda_id;
+    }
+
     public Integer getVenda_id_usuario() {
         return venda_id_usuario;
     }
