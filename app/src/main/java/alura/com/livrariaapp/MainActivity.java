@@ -57,15 +57,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public ArrayList<Usuario> listaUsuarios(){
-        return dao.listarDados();
+        return dao.listarDadosUsuario();
     }
 
-    public void elementosLista(ArrayList<Usuario> lista){
+    public ArrayList<Livro> listaLivros(){
+        return dao.listarDadosLivros();
+    }
+
+    public ArrayList<Venda> listaVendas(){
+        return dao.listarDadosVendas();
+    }
+
+    public void elementosListaUsuario(ArrayList<Usuario> lista){
         //Testando e mostrando os elementos da lista de Usuarios
         int i;
         int n = lista.size();
         for (i=0; i<n; i++) {
-            System.out.printf("Usuario Numero: %d- Nome: %s\n", i, lista.get(i).getUsuario_nome());
+            System.out.printf("Dado Numero: %d- Nome: %s\n", i, lista.get(i).getUsuario_nome());
+        }
+    }
+
+    public void elementosListaLivro(ArrayList<Livro> lista){
+        //Testando e mostrando os elementos da lista de livros
+        int i;
+        int n = lista.size();
+        for (i=0; i<n; i++) {
+            System.out.printf("Dado Numero: %d- Nome: %s\n", i, lista.get(i).getLivro_nome());
+        }
+    }
+
+    public void elementosListaVenda(ArrayList<Venda> lista){
+        //Testando e mostrando os elementos da lista de vendas
+        int i;
+        int n = lista.size();
+        for (i=0; i<n; i++) {
+            System.out.printf("Dado Numero: %d- Nome: %s\n", i, lista.get(i).getVenda_forma_pagamento());
         }
     }
 
@@ -153,6 +179,8 @@ public class MainActivity extends AppCompatActivity {
         livro2.setLivro_genero("Fantasia");
         livro2.setLivro_nome("A revolução dos bichos");
         livro2.setLivro_preco("75,00");
+        Log.d("Resultado livro: ", cadastraLivroMain(livro1, "1234567890"));
+        Log.d("Resultado livro: ", cadastraLivroMain(livro2, "1234567890"));
 
         //Venda
         Venda venda1 = new Venda();
@@ -160,11 +188,16 @@ public class MainActivity extends AppCompatActivity {
         venda1.setVenda_forma_pagamento("Cartão");
 
         //Registrando uma venda
-        Log.d("Resultado venda: ", registraVendaMain(venda, "1234567890", "1111"));
+        Log.d("Resultado venda: ", registraVendaMain(venda1, "1234567890", "1111"));
 
         //-------------------------------------------------------------------------
         //Exibindo as informações
-        elementosLista(listaUsuarios());
+        //elementosListaUsuario(listaUsuarios());
+
+        elementosListaLivro(listaLivros());
+
+        elementosListaVenda(listaVendas());
+
 
     }
 }

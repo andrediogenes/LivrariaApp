@@ -19,7 +19,7 @@ import alura.com.livrariaapp.OBJETOS.Venda;
 
 public class DAO extends SQLiteOpenHelper {
     public DAO(Context context) {
-        super(context, "USUARIO", null, 8);
+        super(context, "USUARIO", null, 9);
     }
 
     //Criacao das tabelas no banco
@@ -244,7 +244,7 @@ public class DAO extends SQLiteOpenHelper {
         return id;
     }
 
-    public ArrayList<Usuario> listarDados() {
+    public ArrayList<Usuario> listarDadosUsuario() {
         ArrayList<Usuario> linhas = new ArrayList<>();
         try {
             SQLiteDatabase db = getWritableDatabase();
@@ -260,6 +260,56 @@ public class DAO extends SQLiteOpenHelper {
                 usuario.setUsuario_nasc(c.getString(c.getColumnIndexOrThrow("USUARIO_DATANASC")));
 
                 linhas.add(usuario);
+            }
+            db.close();
+            c.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return linhas;
+    }
+
+    public ArrayList<Livro> listarDadosLivros() {
+        ArrayList<Livro> linhas = new ArrayList<>();
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+            Cursor c = db.rawQuery("SELECT LIVRO_ID, LIVRO_IDUSUARIOCADASTRO, LIVRO_CODBARRAS, LIVRO_NOME, LIVRO_GENERO, LIVRO_AUTOR, LIVRO_PRECO FROM LIVRO", null);
+
+            while(c.moveToNext()){
+                Livro livro = new Livro();
+                livro.setLivro_id(c.getInt(c.getColumnIndexOrThrow("LIVRO_ID")));
+                livro.setLivro_cod_barras(c.getString(c.getColumnIndexOrThrow("LIVRO_CODBARRAS")));
+                livro.setLivro_nome(c.getString(c.getColumnIndexOrThrow("LIVRO_NOME")));
+                livro.setLivro_genero(c.getString(c.getColumnIndexOrThrow("LIVRO_GENERO")));
+                livro.setLivro_preco(c.getString(c.getColumnIndexOrThrow("LIVRO_PRECO")));
+                livro.setLivro_autor(c.getString(c.getColumnIndexOrThrow("LIVRO_AUTOR")));
+                livro.setUsuario_cadastro_id(c.getInt(c.getColumnIndexOrThrow("LIVRO_IDUSUARIOCADASTRO")));
+
+                linhas.add(livro);
+            }
+            db.close();
+            c.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return linhas;
+    }
+
+    public ArrayList<Venda> listarDadosVendas() {
+        ArrayList<Venda> linhas = new ArrayList<>();
+        try {
+            SQLiteDatabase db = getWritableDatabase();
+            Cursor c = db.rawQuery("SELECT VENDA_ID, VENDA_IDUSUARIOVENDA, VENDA_IDLIVROVENDA, VENDA_DATACOMPRA, VENDA_FORMAPAGAMENTO FROM VENDA", null);
+
+            while(c.moveToNext()){
+                Venda venda = new Venda();
+                venda.setVenda_id(c.getInt(c.getColumnIndexOrThrow("VENDA_ID")));
+                venda.setVenda_id_usuario(c.getInt(c.getColumnIndexOrThrow("VENDA_IDUSUARIOVENDA")));
+                venda.setVenda_id_livro(c.getInt(c.getColumnIndexOrThrow("VENDA_IDLIVROVENDA")));
+                venda.setVenda_data(c.getString(c.getColumnIndexOrThrow("VENDA_DATACOMPRA")));
+                venda.setVenda_forma_pagamento(c.getString(c.getColumnIndexOrThrow("VENDA_FORMAPAGAMENTO")));
+
+                linhas.add(venda);
             }
             db.close();
             c.close();
