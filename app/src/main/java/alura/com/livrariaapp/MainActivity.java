@@ -187,12 +187,17 @@ public class MainActivity extends AppCompatActivity {
         venda1.setVenda_data("22/05/2022");
         venda1.setVenda_forma_pagamento("Cartão");
 
+        Venda venda2 = new Venda();
+        venda2.setVenda_data("22/01/2022");
+        venda2.setVenda_forma_pagamento("Débito");
+
         //Registrando uma venda
-        Log.d("Resultado venda: ", registraVendaMain(venda1, "1234567890", "1111"));
+        Log.d("Resultado venda: ", registraVendaMain(venda2, "1234567890", "1111"));
+        Log.d("Resultado venda: ", registraVendaMain(venda2, "1234567890", "1112"));
 
         //-------------------------------------------------------------------------
         //Exibindo as informações
-        //elementosListaUsuario(listaUsuarios());
+        elementosListaUsuario(listaUsuarios());
 
         elementosListaLivro(listaLivros());
 

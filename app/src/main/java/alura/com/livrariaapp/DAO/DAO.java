@@ -248,7 +248,7 @@ public class DAO extends SQLiteOpenHelper {
         ArrayList<Usuario> linhas = new ArrayList<>();
         try {
             SQLiteDatabase db = getWritableDatabase();
-            Cursor c = db.rawQuery("SELECT USUARIO_ID, USUARIO_NOME, USUARIO_CPF, USUARIO_DATANASC, USUARIO_EHADM, USUARIO_SENHA FROM USUARIO", null);
+            Cursor c = db.rawQuery("SELECT * FROM USUARIO", null);
 
             while(c.moveToNext()){
                 Usuario usuario = new Usuario();
@@ -273,7 +273,7 @@ public class DAO extends SQLiteOpenHelper {
         ArrayList<Livro> linhas = new ArrayList<>();
         try {
             SQLiteDatabase db = getWritableDatabase();
-            Cursor c = db.rawQuery("SELECT LIVRO_ID, LIVRO_IDUSUARIOCADASTRO, LIVRO_CODBARRAS, LIVRO_NOME, LIVRO_GENERO, LIVRO_AUTOR, LIVRO_PRECO FROM LIVRO", null);
+            Cursor c = db.rawQuery("SELECT * FROM LIVRO", null);
 
             while(c.moveToNext()){
                 Livro livro = new Livro();
@@ -299,7 +299,7 @@ public class DAO extends SQLiteOpenHelper {
         ArrayList<Venda> linhas = new ArrayList<>();
         try {
             SQLiteDatabase db = getWritableDatabase();
-            Cursor c = db.rawQuery("SELECT VENDA_ID, VENDA_IDUSUARIOVENDA, VENDA_IDLIVROVENDA, VENDA_DATACOMPRA, VENDA_FORMAPAGAMENTO FROM VENDA", null);
+            Cursor c = db.rawQuery("SELECT * FROM VENDA", null);
 
             while(c.moveToNext()){
                 Venda venda = new Venda();
