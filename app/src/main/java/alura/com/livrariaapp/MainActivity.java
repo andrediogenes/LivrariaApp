@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import alura.com.livrariaapp.DAO.DAO;
 import alura.com.livrariaapp.OBJETOS.Livro;
 import alura.com.livrariaapp.OBJETOS.Usuario;
@@ -54,8 +56,43 @@ public class MainActivity extends AppCompatActivity {
         return dao.deletaVenda(idLivro);
     }
 
-    public void listaUsuarios(){
-        dao.listarDados();
+    public ArrayList<Usuario> listaUsuarios(){
+        return dao.listarDadosUsuario();
+    }
+
+    public ArrayList<Livro> listaLivros(){
+        return dao.listarDadosLivros();
+    }
+
+    public ArrayList<Venda> listaVendas(){
+        return dao.listarDadosVendas();
+    }
+
+    public void elementosListaUsuario(ArrayList<Usuario> lista){
+        //Testando e mostrando os elementos da lista de Usuarios
+        int i;
+        int n = lista.size();
+        for (i=0; i<n; i++) {
+            System.out.printf("Dado Numero: %d- Nome: %s\n", i, lista.get(i).getUsuario_nome());
+        }
+    }
+
+    public void elementosListaLivro(ArrayList<Livro> lista){
+        //Testando e mostrando os elementos da lista de livros
+        int i;
+        int n = lista.size();
+        for (i=0; i<n; i++) {
+            System.out.printf("Dado Numero: %d- Nome: %s\n", i, lista.get(i).getLivro_nome());
+        }
+    }
+
+    public void elementosListaVenda(ArrayList<Venda> lista){
+        //Testando e mostrando os elementos da lista de vendas
+        int i;
+        int n = lista.size();
+        for (i=0; i<n; i++) {
+            System.out.printf("Dado Numero: %d- Nome: %s\n", i, lista.get(i).getVenda_forma_pagamento());
+        }
     }
 
     @Override
@@ -142,17 +179,30 @@ public class MainActivity extends AppCompatActivity {
         livro2.setLivro_genero("Fantasia");
         livro2.setLivro_nome("A revolução dos bichos");
         livro2.setLivro_preco("75,00");
+        Log.d("Resultado livro: ", cadastraLivroMain(livro1, "1234567890"));
+        Log.d("Resultado livro: ", cadastraLivroMain(livro2, "1234567890"));
 
         //Venda
         Venda venda1 = new Venda();
         venda1.setVenda_data("22/05/2022");
         venda1.setVenda_forma_pagamento("Cartão");
 
+        Venda venda2 = new Venda();
+        venda2.setVenda_data("22/01/2022");
+        venda2.setVenda_forma_pagamento("Débito");
+
         //Registrando uma venda
-        Log.d("Resultado venda: ", registraVendaMain(venda, "1234567890", "1111"));
+        Log.d("Resultado venda: ", registraVendaMain(venda2, "1234567890", "1111"));
+        Log.d("Resultado venda: ", registraVendaMain(venda2, "1234567890", "1112"));
 
         //-------------------------------------------------------------------------
         //Exibindo as informações
-        listaUsuarios();
+        elementosListaUsuario(listaUsuarios());
+
+        elementosListaLivro(listaLivros());
+
+        elementosListaVenda(listaVendas());
+
+
     }
 }
