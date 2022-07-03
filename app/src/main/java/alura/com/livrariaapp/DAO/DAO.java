@@ -318,4 +318,49 @@ public class DAO extends SQLiteOpenHelper {
         }
         return linhas;
     }
+
+    //Funcao que atualiza um usuario na tabela
+    public long atualizarContato(Usuario usuario){
+        long retornoBD;
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("USUARIO_NOME",usuario.getUsuario_nome());
+        values.put("USUARIO_CPF",usuario.getUsuario_CPF());
+        values.put("USUARIO_DATANASC", usuario.getUsuario_nasc());
+        values.put("USUARIO_SENHA",usuario.getUsuario_senha());
+        String[] args = {String.valueOf(usuario.getUsuario_id())};
+        retornoBD=db.update("USUARIO",values,"id=?",args);
+        db.close();
+        return retornoBD;
+    }
+
+    //Funcao que atualiza um livro na tabela
+    public long atualizarLivro(Livro livro){
+        long retornoBD;
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("LIVRO_NOME",livro.getLivro_nome());
+        values.put("LIVRO_GENERO",livro.getLivro_genero());
+        values.put("LIVRO_AUTOR",livro.getLivro_autor());
+        values.put("LIVRO_PRECO",livro.getLivro_preco());
+        values.put("LIVRO_CODBARRAS",livro.getLivro_cod_barras());
+        String[] args = {String.valueOf(livro.getLivro_id())};
+        retornoBD=db.update("LIVRO",values,"id=?",args);
+        db.close();
+        return retornoBD;
+    }
+
+    //Funcao que atualiza uma venda na tabela
+    public long atualizarLivro(Venda venda){
+        long retornoBD;
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("VENDA_DATACOMPRA",venda.getVenda_data());
+        values.put("VENDA_FORMAPAGAMENTO", venda.getVenda_forma_pagamento());
+        String[] args = {String.valueOf(venda.getVenda_id())};
+        retornoBD=db.update("LIVRO",values,"id=?",args);
+        db.close();
+        return retornoBD;
+    }
 }
