@@ -14,6 +14,7 @@ Link com o protótipo: https://www.figma.com/file/HIhJ4eReOW9NQI0ig2AFe8/Trabalh
 
 Link da apresentação: 
 https://drive.google.com/file/d/16iHgTyzcQWHdYvDzmV_zcq4AK74j2EwJ/view?usp=sharing
+YouTube:
 https://youtu.be/97kX4XHQl70
 
 Link do projeto no Drive
