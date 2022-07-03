@@ -2,8 +2,12 @@ package alura.com.livrariaapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -13,8 +17,9 @@ import alura.com.livrariaapp.OBJETOS.Usuario;
 import alura.com.livrariaapp.OBJETOS.Venda;
 
 public class MainActivity extends AppCompatActivity {
-
-    DAO dao = new DAO(this);
+    private DAO dao = new DAO(this);
+    private EditText edtLoginCPF;
+    private EditText edtSenha;
 
     //Função que insere um usuário.
     public String insereUsuarioMain(Usuario usuario){
@@ -97,9 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        //Testes feitos:
         //instanciando usuario ADM para ser cadastrado no sistema
         Usuario usuario = new Usuario();
         usuario.setUsuario_nome("Andre diogenes");
@@ -203,6 +207,38 @@ public class MainActivity extends AppCompatActivity {
 
         elementosListaVenda(listaVendas());
 
-
+        //-------------------------------------------------------------------------
+        //Fim da parte de testes do Andre
+        //-------------------------------------------------------------------------
+        
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        edtLoginCPF=findViewById(R.id.edtLoginCPF);
+        edtSenha=findViewById(R.id.edtSenha);
     }
+    public void conectar(View view) {
+        String usr=edtLoginCPF.getText().toString();
+        String senha = edtSenha.getText().toString();
+        String password=dao.autenticaUsuario(usr, senha);
+        if(senha.equals(password)){
+            Intent intent= new Intent(this, MenuUsuario.class);
+            intent.putExtra("chave_usuario",usr);
+            startActivity(intent);
+        }
+        else{
+            Toast toast = Toast.makeText(MainActivity.this,
+                    "Usuário ou senha inválido",Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+    public void cadastrar(View view) {
+        Intent it = new Intent(this, Cadastro.class);
+        startActivity(it);
+    }
+    public void LoginAdm (View view){
+        Intent it = new Intent(this, LoginAdmin.class);
+        startActivity(it);
+    }
+
+
 }

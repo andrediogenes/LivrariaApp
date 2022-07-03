@@ -4,6 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/andre/AndroidStudioProjects/LivrariaApp/app/src/main/res/layout/activity_main.xml" value="0.1838768115942029" />
+        <entry key="..\:/Users/vidmo/Desktop/LivrariaApp-master/LivrariaApp-master/app/src/main/res/layout/activity_cadastrar_livro.xml" value="0.26875" />
+        <entry key="..\:/Users/vidmo/Desktop/LivrariaApp-master/LivrariaApp-master/app/src/main/res/layout/activity_cadastrar_usuario.xml" value="0.26875" />
+        <entry key="..\:/Users/vidmo/Desktop/LivrariaApp-master/LivrariaApp-master/app/src/main/res/layout/activity_cadastro.xml" value="0.26875" />
+        <entry key="..\:/Users/vidmo/Desktop/LivrariaApp-master/LivrariaApp-master/app/src/main/res/layout/activity_editar_livros.xml" value="0.26875" />
+        <entry key="..\:/Users/vidmo/Desktop/LivrariaApp-master/LivrariaApp-master/app/src/main/res/layout/activity_editar_usuarios.xml" value="0.26875" />
+        <entry key="..\:/Users/vidmo/Desktop/LivrariaApp-master/LivrariaApp-master/app/src/main/res/layout/activity_login_admin.xml" value="0.26875" />
+        <entry key="..\:/Users/vidmo/Desktop/LivrariaApp-master/LivrariaApp-master/app/src/main/res/layout/activity_main.xml" value="0.3625" />
+        <entry key="..\:/Users/vidmo/Desktop/LivrariaApp-master/LivrariaApp-master/app/src/main/res/layout/activity_menu_admin.xml" value="0.2546875" />
+        <entry key="..\:/Users/vidmo/Desktop/LivrariaApp-master/LivrariaApp-master/app/src/main/res/layout/activity_menu_usuario.xml" value="0.2546875" />
       </map>
     </option>
   </component>
