@@ -19,7 +19,7 @@ import alura.com.livrariaapp.OBJETOS.Venda;
 
 public class DAO extends SQLiteOpenHelper {
     public DAO(Context context) {
-        super(context, "USUARIO", null, 9);
+        super(context, "USUARIO", null, 10);
     }
 
     //Criacao das tabelas no banco
