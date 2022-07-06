@@ -38,18 +38,6 @@ public class MenuUsuario extends AppCompatActivity {
         ArrayAdapter<String> adapterLivro = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,livrosListView);
         listLivros.setAdapter(adapterLivro);
 
-        //Listando os usuários
-        listUsuarios = findViewById(R.id.listinhalindinha);
-
-        List<Usuario> usuarios = dao.listarDadosUsuario();
-        List<String> usuariosListView = new ArrayList<>();
-
-        for(Usuario usuarioIterado:usuarios){
-            usuariosListView.add(usuarioIterado.getUsuario_nome());
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,usuariosListView);
-        listUsuarios.setAdapter(adapter);
-
     }
     public void voltarLogin (View view){
         Intent it = new Intent(this, MainActivity.class);

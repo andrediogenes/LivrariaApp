@@ -8,14 +8,14 @@
 
     <ListView
         android:id="@+id/list1"
-        android:layout_width="406dp"
-        android:layout_height="205dp"
+        android:layout_width="410dp"
+        android:layout_height="525dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.092" />
+        app:layout_constraintVertical_bias="0.325" />
 
     <Button
         android:id="@+id/btnRegistrar"
@@ -52,24 +52,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.002" />
-
-    <ListView
-        android:id="@+id/listinhalindinha"
-        android:layout_width="380dp"
-        android:layout_height="218dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72"
-        tools:layout_editor_absoluteX="16dp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lista de Usuários cadastrados"
-        app:layout_constraintBottom_toTopOf="@+id/listinhalindinha"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.951"
-        tools:layout_editor_absoluteX="4dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
