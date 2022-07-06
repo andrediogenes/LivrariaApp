@@ -107,10 +107,10 @@ public class MainActivity extends AppCompatActivity {
         //instanciando usuario ADM para ser cadastrado no sistema
         Usuario usuario = new Usuario();
         usuario.setUsuario_nome("Andre diogenes");
-        usuario.setUsuario_CPF("1234567890");
+        usuario.setUsuario_CPF("1");
         usuario.setUsuario_nasc("31/01/1996");
         usuario.setUsuario_adm(1);
-        usuario.setUsuario_senha("1234");
+        usuario.setUsuario_senha("1");
 
         //Inserindo um adm do sistema
         Log.d("Resultado usuario: ", insereUsuarioMain(usuario));
@@ -219,8 +219,8 @@ public class MainActivity extends AppCompatActivity {
     public void conectar(View view) {
         String usr=edtLoginCPF.getText().toString();
         String senha = edtSenha.getText().toString();
-        String password=dao.autenticaUsuario(usr, senha);
-        if(senha.equals(password)){
+        String autenticacao=dao.autenticaUsuario(usr, senha);
+        if(autenticacao.equals("login efetuado com sucesso")){
             Intent intent= new Intent(this, MenuUsuario.class);
             intent.putExtra("chave_usuario",usr);
             startActivity(intent);

@@ -110,6 +110,31 @@ public class DAO extends SQLiteOpenHelper {
         return "login falhou, usuário ou senha inválidos";
     }
 
+    @SuppressLint("Range")
+    public String autenticaAdm(String CPF, String senha){
+        SQLiteDatabase db = getWritableDatabase();
+        String sqli_busca_usuario = "SELECT * FROM USUARIO WHERE USUARIO_CPF = " +
+                "'" +
+                CPF +
+                "'";
+        Cursor c = db.rawQuery(sqli_busca_usuario, null);
+
+        while (c.moveToNext()){
+            if (CPF.equals(c.getString(c.getColumnIndex("USUARIO_CPF")))){
+                if(senha.equals(c.getString(c.getColumnIndex("USUARIO_SENHA")))){
+                    if (c.getColumnIndex("USUARIO_EHADM") == 1) {
+                        db.close();
+                        c.close();
+                        return "login efetuado com sucesso";
+                    }
+                }
+            }
+        }
+        db.close();
+        c.close();
+        return "login falhou, usuário ou senha inválidos";
+    }
+
     //
     public String deletaUsuario(String CPF){
         SQLiteDatabase db = getWritableDatabase();
