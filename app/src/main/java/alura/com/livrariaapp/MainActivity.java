@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         //Inserindo um adm do sistema
         Log.d("Resultado usuario: ", insereUsuarioMain(usuario));
         //Autenticando o ADM
-        Log.d("Resultado autenticacao:", autenticaUsuarioMain( "1234567890", "1234"));
+        Log.d("Resultado autenticacao:", dao.autenticaAdm( "1", "1"));
         //Inserindo o mesmo usuário no sistema para dar erro
         Log.d("Resultado usuario: ", insereUsuarioMain(usuario));
         //Deletando o usuario no sistema
