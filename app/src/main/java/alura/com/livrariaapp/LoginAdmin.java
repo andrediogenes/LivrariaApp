@@ -19,8 +19,8 @@ public class LoginAdmin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_admin);
-        edtLoginCPF=findViewById(R.id.edtLoginCPF);
-        edtSenha=findViewById(R.id.edtSenha);
+        edtLoginCPF=findViewById(R.id.edtLoginCPFAdm);
+        edtSenha=findViewById(R.id.edtSenhaAdm);
     }
     public void conectar(View view) {
         String usr=edtLoginCPF.getText().toString();

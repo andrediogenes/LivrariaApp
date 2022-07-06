@@ -122,7 +122,7 @@ public class DAO extends SQLiteOpenHelper {
         while (c.moveToNext()){
             if (CPF.equals(c.getString(c.getColumnIndex("USUARIO_CPF")))){
                 if(senha.equals(c.getString(c.getColumnIndex("USUARIO_SENHA")))){
-                    if (c.getColumnIndex("USUARIO_EHADM") == 1) {
+                    if (c.getInt(c.getColumnIndex("USUARIO_EHADM")) == 1) {
                         db.close();
                         c.close();
                         return "login efetuado com sucesso";
