@@ -10,7 +10,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import alura.com.livrariaapp.DAO.DAO;
+import alura.com.livrariaapp.OBJETOS.Usuario;
 
 public class EditarUsuarios extends AppCompatActivity {
     private DAO dao = new DAO(this);
@@ -20,9 +24,16 @@ public class EditarUsuarios extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_usuarios);
 
+        //Listando os usuários
         listaUsuarios = findViewById(R.id.listaUsuarios);
-        String [] lista = new String[]{"USUARIO_NOME", "USUARIO_CPF"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,lista);
+
+        List<Usuario> usuarios = dao.listarDadosUsuario();
+        List<String> usuariosListView = new ArrayList<>();
+
+        for(Usuario usuarioIterado:usuarios){
+            usuariosListView.add(usuarioIterado.getUsuario_nome());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,usuariosListView);
         listaUsuarios.setAdapter(adapter);
     }
 
