@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -24,8 +25,8 @@ public class LoginAdmin extends AppCompatActivity {
     public void conectar(View view) {
         String usr=edtLoginCPF.getText().toString();
         String senha = edtSenha.getText().toString();
-        String password=dao.autenticaUsuario(usr, senha);
-        if(senha.equals(password)){
+        String password=dao.autenticaAdm(usr, senha);
+        if(password.equals("login efetuado com sucesso")){
             Intent intent= new Intent(this, MenuAdmin.class);
             intent.putExtra("chave_usuario",usr);
             startActivity(intent);
@@ -35,8 +36,6 @@ public class LoginAdmin extends AppCompatActivity {
                     "Usuário ou senha inválido",Toast.LENGTH_LONG);
             toast.show();
         }
-        limpar();
-        finish();
     }
     public void limpar(){
         edtLoginCPF.setText("");

@@ -5,27 +5,40 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import alura.com.livrariaapp.DAO.DAO;
+import alura.com.livrariaapp.OBJETOS.Livro;
+import alura.com.livrariaapp.OBJETOS.Usuario;
 
 public class MenuUsuario extends AppCompatActivity {
     DAO dao = new DAO(this);
-    private ListView list;
+    private ListView listUsuarios, listLivros;
     private Button btnRegistrar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_usuario);
 
-        btnRegistrar = findViewById(R.id.btnRegistrar);
-        list = findViewById(R.id.list1);
-        String [] lista = new String[]{"LIVRO_NOME"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,lista);
-        list.setAdapter(adapter);
+        //Listando os livros
+        listLivros = findViewById(R.id.list1);
+
+        List<Livro> livros = dao.listarDadosLivros();
+        List<String> livrosListView = new ArrayList<>();
+
+        for(Livro livroIterado:livros){
+            livrosListView.add(livroIterado.getLivro_nome());
+        }
+        ArrayAdapter<String> adapterLivro = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,livrosListView);
+        listLivros.setAdapter(adapterLivro);
+
+
     }
     public void voltarLogin (View view){
         Intent it = new Intent(this, MainActivity.class);
