@@ -19,7 +19,7 @@ import alura.com.livrariaapp.OBJETOS.Venda;
 
 public class DAO extends SQLiteOpenHelper {
     public DAO(Context context) {
-        super(context, "USUARIO", null, 10);
+        super(context, "USUARIO", null, 11);
     }
 
     //Criacao das tabelas no banco
@@ -127,6 +127,8 @@ public class DAO extends SQLiteOpenHelper {
                         c.close();
                         return "login efetuado com sucesso";
                     }
+                    else
+                        return "Usuário não é ADM";
                 }
             }
         }

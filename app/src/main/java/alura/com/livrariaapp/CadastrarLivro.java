@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import alura.com.livrariaapp.DAO.DAO;
 import alura.com.livrariaapp.OBJETOS.Livro;
+import alura.com.livrariaapp.OBJETOS.Usuario;
 
 public class CadastrarLivro extends AppCompatActivity {
     private DAO dao = new DAO(this);
@@ -35,6 +36,11 @@ public class CadastrarLivro extends AppCompatActivity {
         edtPreco = findViewById(R.id.edtPreco);
         edtCodBarras = findViewById(R.id.edtCodBarras);
         edtIdUsarioCadastro = findViewById(R.id.edtIdUsuarioCadastro);
+        btnCadastrarLivro = findViewById(R.id.btnCadastrarLivro);
+
+        Intent it = getIntent();
+        altLivro = (Livro) it.getSerializableExtra("chave_livro");
+        livro = new Livro();
 
         if(altLivro != null){
             btnCadastrarLivro.setText("ALTERAR");
@@ -49,6 +55,31 @@ public class CadastrarLivro extends AppCompatActivity {
         }
     }
     public void cadastrarLivro (View view){
+        String nome = edtNomeLivro.getText().toString();
+        String genero = edtGenero.getText().toString();
+        String autor = edtAutor.getText().toString();
+        String preco = edtPreco.getText().toString();
+        String codbarras = edtCodBarras.getText().toString();
+        Integer idusuariocadastro = Integer.valueOf(edtIdUsarioCadastro.getText().toString());
+
+        livro.setLivro_nome(nome);
+        livro.setLivro_genero(genero);
+        livro.setLivro_autor(autor);
+        livro.setLivro_preco(preco);
+        livro.setLivro_cod_barras(codbarras);
+        livro.setUsuario_cadastro_id(idusuariocadastro);
+
+        if(btnCadastrarLivro.getText().toString().equals("SALVAR")){
+            dao.insereLivro(livro, idusuariocadastro);
+            Toast toast = Toast.makeText(CadastrarLivro.this,
+                    "Livro cadastrado com sucesso!", Toast.LENGTH_SHORT);
+            toast.show();
+        }else{
+            dao.atualizarLivro(livro);
+            dao.close();
+        }
+        limpar();
+        finish();
     }
     public void limpar(){
         edtNomeLivro.setText("");
@@ -57,9 +88,7 @@ public class CadastrarLivro extends AppCompatActivity {
         edtPreco.setText("");
         edtCodBarras.setText("");
     }
-    public void cancelarCadastro(View view) {
-        finish();
-    }
+    public void cancelarCadastro(View view) { finish(); }
 
     public void voltarEdtLivros (View view){
         Intent it = new Intent(this, EditarLivros.class);
