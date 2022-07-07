@@ -23,12 +23,13 @@
         android:id="@+id/edtCodBarras"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="124dp"
+        android:layout_marginBottom="44dp"
         android:ems="10"
         android:hint="Código de Barras"
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/btnCadastrarLivro"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -81,27 +82,23 @@
         android:id="@+id/btnCancelarCadastro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
         android:layout_marginEnd="63dp"
         android:layout_marginBottom="172dp"
-        android:text="Cancelar"
         android:onClick="cancelarCadastro"
+        android:text="Cancelar"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtCodBarras" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/edtIdUsuarioCadastro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="117dp"
         android:ems="10"
-        android:hint="Id do Usuario"
+        android:hint="CPF do Usuario"
         android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/edtNomeLivro"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnVoltarEdtLivros"

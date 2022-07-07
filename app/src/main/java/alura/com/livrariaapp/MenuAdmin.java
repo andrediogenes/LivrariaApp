@@ -26,4 +26,9 @@ public class MenuAdmin extends AppCompatActivity {
         Intent it = new Intent(this, EditarLivros.class);
         startActivity(it);
     }
+
+    public void voltarMenu(View view){
+        Intent it = new Intent(this, MainActivity.class);
+        startActivity(it);
+    }
 }

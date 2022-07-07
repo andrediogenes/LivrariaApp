@@ -33,7 +33,7 @@ public class LoginAdmin extends AppCompatActivity {
         }
         else{
             Toast toast = Toast.makeText(LoginAdmin.this,
-                    "Usuário ou senha inválido",Toast.LENGTH_LONG);
+                    password,Toast.LENGTH_LONG);
             toast.show();
         }
     }
